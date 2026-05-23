@@ -14,11 +14,8 @@
 
 
 sudo apt update -y
-
 sudo apt upgrade -y 
-
 sudo apt install openjdk-17-jre -y
-
 curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
   /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
@@ -26,3 +23,33 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update -y 
 sudo apt-get install jenkins -y
+
+#######****Above it older****#######
+
+## Its New installed on ubuntu 24 ##
+# every year Key are changed if above not installed you can remvoed the old key
+sudo rm -f /etc/apt/sources.list.d/jenkins.list
+sudo rm -f /usr/share/keyrings/jenkins-keyring.asc
+sudo rm -f /etc/apt/trusted.gpg.d/jenkins*
+sudo rm -f /etc/apt/keyrings/jenkins-keyring.asc
+
+#From this path i installed new https://pkg.jenkins.io/debian-stable/
+
+#add key
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+    https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+  
+#Then add a Jenkins apt repository entry:
+    
+  echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+    https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+    /etc/apt/sources.list.d/jenkins.list > /dev/null
+  
+#Update your local package index, then finally install Jenkins:
+
+   
+  sudo apt-get update
+  sudo apt-get install fontconfig openjdk-21-jre
+  sudo apt-get install jenkins
+
+  
